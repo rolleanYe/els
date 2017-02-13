@@ -9,22 +9,85 @@
   <url>http://maven.apache.org</url>
 
 
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>1.4.0.BUILD-SNAPSHOT</version>
+  </parent>
+
+  <!-- Add typical dependencies for a web application -->
   <dependencies>
+
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <exclusions>
+        <exclusion>
+          <artifactId>log4j-over-slf4j</artifactId>
+          <groupId>org.slf4j</groupId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-tomcat</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-tomcat</artifactId>
+      <scope>provided</scope>
+    </dependency>
 
-
-
-
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
   </dependencies>
 
+  <!-- Package as an executable jar -->
   <build>
-    <finalName>els</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <configuration>
+          <warName>els</warName>
+        </configuration>
+      </plugin>
+
+    </plugins>
   </build>
+
+  <!-- Add Spring repositories -->
+  <!-- (you don't need this if you are using a .RELEASE version) -->
+  <repositories>
+    <repository>
+      <id>spring-snapshots</id>
+      <url>http://repo.spring.io/snapshot</url>
+      <snapshots><enabled>true</enabled></snapshots>
+    </repository>
+    <repository>
+      <id>spring-milestones</id>
+      <url>http://repo.spring.io/milestone</url>
+    </repository>
+  </repositories>
+
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>spring-snapshots</id>
+      <url>http://repo.spring.io/snapshot</url>
+    </pluginRepository>
+    <pluginRepository>
+      <id>spring-milestones</id>
+      <url>http://repo.spring.io/milestone</url>
+    </pluginRepository>
+  </pluginRepositories>
 
 </project>
